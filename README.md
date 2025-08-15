@@ -5,14 +5,14 @@ The goal is to make a calculator that computes a student’s General Weighted Av
 you enter grades + units for each subject, and the program does the calculations.  
 
 ## Features
-- Supports Python 3.8 and newer versions
-- Displays student’s GWA based on the user’s data for grades and corresponding units
-- Accepts multiple subjects with grades and units
-- Calculates the weighted average automatically
-- Displays the final GWA up to two decimal places
-- Validates input to ensure correct numeric entries
-- Allows repeated calculations without restarting the program
-
+-Created a calculator that computes a student’s General Weighted Average(GWA) based on subject grades and corresponding units.
+-Supports Python 3.8 and newer versions
+-Displays student’s GWA based on the user’s data for grades and corresponding units
+- Supports entering multiple subjects along with their grades and corresponding units
+- Automatically computes the weighted average
+- Rounds up the final GWA to 2 decimal places
+- Checks input to guarantee correct numerical entries 
+- Allows repeated use of the program without shutting down
 ## Requirements
 - Python 3.8+  
 
