@@ -17,9 +17,25 @@ you enter grades + units for each subject, and the program does the calculations
 - Python 3.8+  
 
 ## How to Run
-1. Download/clone this folder
-2. Open terminal or cmd
-3. `cd` into the folder  
-4. Run:  
-   ```bash
-   python gwa_calculator.py
+1. Download or clone this repository
+2. Open terminal or command prompt
+3. Navigate to the project folder
+4. Run:
+
+## Sample Run
+Enter subject grade (or 'done' to finish): 1.5
+Enter subject units: 3
+Enter subject grade (or 'done' to finish): 2.0
+Enter subject units: 4
+Enter subject grade (or 'done' to finish): 1.75
+Enter subject units: 3
+Enter subject grade (or 'done' to finish): done
+
+Your General Weighted Average (GWA) is: 1.78
+Classification: Dean's Lister
+
+## Contributors
+- Josh Nathaniel P. Pestañas
+- Kingston Miguell Ilagan
+- Sasha Kaye M. Directo
+
