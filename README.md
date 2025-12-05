@@ -5,7 +5,8 @@
 you enter grades + units for each subject, and the program does the calculations for you. 
 
 ## Features
--We created a calculator which will compute a student’s General Weighted Average or G.W.A based on the grades of their subjects and its corresponding units
+-We created a calculator which will compute a student’s General Weighted Average
+or G.W.A based on the grades of their subjects and its corresponding units
 -User can enter either percentage or GWA subject grade value
 -Percentage subject grade value are converted into GWA subject grade value
 -It supports Python 3.8 and newer versions
