@@ -5,27 +5,50 @@
 you enter grades + units for each subject, and the program does the calculations for you. 
 
 ## Features
--We created a calculator which will compute a student’s General Weighted Average or G.W.A based on the grades of their subjects and its corresponding units
+-Computes a student’s GWA based on grades and units.
 
--User can enter either percentage or GWA subject grade value
+-Accepts both percentage and GWA inputs.
 
--Percentage subject grade value are converted into GWA subject grade value
+-Automatically converts percentage grades to GWA equivalents.
 
--It supports Python 3.8 and newer versions
+-Supports Python 3.8 and newer versions.
 
--Will displays a student’s G.W.A based on the user’s data for their grades and corresponding units
+-Allows multiple subjects with corresponding grades and units.
 
-- It supports when the user enters multiple subjects along with their grades and corresponding units
+-Automatically calculates weighted average and rounds final GWA to 2 decimal places.
 
-- Automatically computes the weighted average
+-Validates user input to ensure correct numerical entries.
 
-- Rounds up the final GWA to 2 decimal places
-
-- Checks input to guarantee correct numerical entries 
-
-- Allows repeated use of the program without shutting down
+-Allows repeated calculations without restarting the program.
 ## Requirements
-- Python 3.8+  
+- Python 3.8+
+
+## Core Feature Implementation
+-percent_to_grade(p): converts percentage grades to standard GWA scale.
+
+-get_input(mode): handles user input and ensures valid grades and units.
+
+-calc_gwa(data): calculates weighted average
+Program outputs classification based on calculated GWA:
+    ≤ 1.50 → Director’s Lister
+    ≤ 3.00 → Passed
+    3.00 → Failed
+
+## Technologies Used & Justification
+  Python 3: Easy to use, supports loops and conditionals efficiently.
+  CLI interface: Lightweight and works on all platforms.
+  GitHub: Version control and project organization.
+
+## Key Design Decisions / Trade-offs
+  -CLI interface chosen for simplicity.
+  -Input validation ensures correct calculations but requires additional       prompts.
+  -Hardcoded percentage-to-GWA mapping ensures accuracy.
+
+## Ethical Considerations
+  -User data is not stored externally to ensure privacy.
+  -Code is written originally; no uncredited external code used.
+  -CLI interface is accessible and inclusive.
+  -All references properly cited according to APA style.
 
 ## How to Run
 1. Download or clone this repository
@@ -85,3 +108,7 @@ Thanks for using the program!
 - Kingston Miguell Ilagan
 - Sasha Kaye M. Directo
 
+## References
+  W3Schools. (2023). Python tutorial. https://www.w3schools.com/python/
+
+  Association for Computing Machinery. (2018). ACM code of ethics and professional conduct. https://www.acm.org/code-of-ethics
