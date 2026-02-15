@@ -21,9 +21,22 @@
    - Enter percentage or GWA subject grade values
    - Calculate their G.W.A
    - Displays student’s GWA based on the user’s data for grades and corresponding units
+ 
+## v2.1.0 – 15/02/26
+-Refactored code to use functions for better readability and modularity:
 
+   main() function for program flow.
 
+   classify_gwa() function to determine user classification.
 
+-Added detailed inline comments and docstrings for maintainability.
 
+-Improved error handling for numeric inputs and units.
 
-(Members; Pestañas, Directo, Ilagan)
+Features:
+
+-Clearer prompts and input instructions.
+
+-Console-based G.W.A. calculator remains fully functional for both percentage and G.W.A. inputs.
+
+(Contributors; Pestañas, Directo, Ilagan)
