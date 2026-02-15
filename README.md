@@ -31,8 +31,11 @@ you enter grades + units for each subject, and the program does the calculations
 -calc_gwa(data): calculates weighted average
 
 Program outputs classification based on calculated GWA:
+
     ≤ 1.50 → Director’s Lister
+    
     ≤ 3.00 → Passed
+    
     3.00 → Failed
 
 ## Technologies Used & Justification
