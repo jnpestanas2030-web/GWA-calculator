@@ -2,7 +2,8 @@
 
 ## Overview 
 -The goal of our code is to make a calculator that computes a student’s General Weighted Average(GWA) based on subject grades and corresponding units.
-you enter grades + units for each subject, and the program does the calculations for you. 
+
+-You enter grades + units for each subject, and the program does the calculations for you. 
 
 ## Features
 -Computes a student’s GWA based on grades and units.
@@ -40,18 +41,25 @@ Program outputs classification based on calculated GWA:
 
 ## Technologies Used & Justification
   Python 3: Easy to use, supports loops and conditionals efficiently.
+  
   CLI interface: Lightweight and works on all platforms.
+  
   GitHub: Version control and project organization.
 
 ## Key Design Decisions / Trade-offs
   -CLI interface chosen for simplicity.
+  
   -Input validation ensures correct calculations but requires additional       prompts.
+  
   -Hardcoded percentage-to-GWA mapping ensures accuracy.
 
 ## Ethical Considerations
   -User data is not stored externally to ensure privacy.
+  
   -Code is written originally; no uncredited external code used.
+  
   -CLI interface is accessible and inclusive.
+  
   -All references properly cited according to APA style.
 
 ## How to Run
