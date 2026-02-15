@@ -78,10 +78,13 @@ Choose what grade input type(1 or 2):
 > 1
 Enter subject grade (or 'done' to finish): 1.5
 Enter subject units: 3
+> 2
 Enter subject grade (or 'done' to finish): 2.0
 Enter subject units: 4
+> 3
 Enter subject grade (or 'done' to finish): 1.75
 Enter subject units: 3
+> 4
 Enter subject grade (or 'done' to finish): done
 
 Your General Weighted Average (GWA) is: 1.78
