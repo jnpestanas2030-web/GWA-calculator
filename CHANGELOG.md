@@ -25,9 +25,9 @@
 ## v2.1.0 – 15/02/26
 - Refactored code to use functions for better readability and modularity:
 
-   main() function for program flow.
+      main() function for program flow.
 
-   classify_gwa() function to determine user classification.
+      classify_gwa() function to determine user classification.
 
 - Added detailed inline comments and docstrings for maintainability.
 
