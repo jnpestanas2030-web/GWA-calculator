@@ -29,6 +29,7 @@ you enter grades + units for each subject, and the program does the calculations
 -get_input(mode): handles user input and ensures valid grades and units.
 
 -calc_gwa(data): calculates weighted average
+
 Program outputs classification based on calculated GWA:
     ≤ 1.50 → Director’s Lister
     ≤ 3.00 → Passed
