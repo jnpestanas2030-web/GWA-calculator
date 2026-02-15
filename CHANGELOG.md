@@ -22,7 +22,7 @@
    - Calculate their G.W.A
    - Displays student’s GWA based on the user’s data for grades and corresponding units
  
-## v2.1.0 – 15/02/26
+## v2.1.0 – 05/02/26
 - Refactored code to use functions for better readability and modularity:
 
       main() function for program flow.
