@@ -1,116 +1,200 @@
-def percent_to_grade(p):
-    """Convert percentage to GWA equivalent."""
-    if p >= 95: return 1.0
-    elif p >= 90: return 1.25
-    elif p >= 85: return 1.5
-    elif p >= 80: return 1.75
-    elif p >= 75: return 2.0
-    elif p >= 70: return 2.25
-    elif p >= 65: return 2.5
-    elif p >= 60: return 2.75
-    elif p >= 55: return 3.0
-    elif p >= 50: return 4.0
-    else: return 5.0
+import tkinter as tk
+from fractions import Fraction
 
-def get_input(mode):
-    """
-    Prompts the user to enter grades and units.
-    mode: 'percent' or 'gwa'
-    Returns a tuple (grade, units) or (None, None) when finished.
-    """
-    while True:
-        grade_input = input("Enter subject grade (or 'done' to finish): ").strip().lower()
-        if grade_input == "done":
-            return None, None
+# --- ROOT WINDOW ---
+root=tk.Tk()
+root.title("Grade Calculator")
+root.geometry("650x700")
+root.configure(bg="#f2f4f7")
 
-        try:
-            grade_input = float(grade_input)
-        except ValueError:
-            print("Invalid input. Please enter a number.")
-            continue
+# -------- VARIABLES --------
+mode=tk.StringVar(value="Percentile")
+typ=tk.StringVar(value="Subject")
+entries=[]
+generated=False
 
-        # Handle percentage input
-        if mode == "percent":
-            if not (0 <= grade_input <= 100):
-                print("Percentage must be between 0 and 100.")
-                continue
-            grade_input = percent_to_grade(grade_input)
-            print(f"Converted to GWA grade: {grade_input}")
-        # Handle direct GWA input
-        else:
-            if not (1.0 <= grade_input <= 5.0):
-                print("GWA must be between 1.0 and 5.0.")
-                continue
+HEADER_FONT=("Segoe UI",20,"bold")  
+LABEL_FONT=("Segoe UI",12)
+ENTRY_FONT=("Segoe UI",12)
+BTN_FONT=("Segoe UI",12,"bold")
 
-        try:
-            units = float(input("Enter subject units: "))
-        except ValueError:
-            print("Units must be a number.")
-            continue
+BG="#f2f4f7"
+CARD="#ffffff"
+BTN="#4a86cf"
+CLEAR="#ff4d4d"
 
-        if units <= 0:
-            print("Units must be greater than 0.")
-            continue
+# ------------------ HELPERS ------------------
+def ordinal(n):
+    return f"{n}th" if 10<=n%100<=20 else f"{n}{['th','st','nd','rd','th','th','th','th','th','th'][n%10]}"
 
-        return grade_input, units
+def clear_all():
+    global generated
+    generated=False
+    entries.clear()
+    for w in input_frame.winfo_children(): w.destroy()
+    result_label.config(text="")
 
-def calc_gwa(data):
-    """
-    Calculates the General Weighted Average (GWA).
-    data: list of tuples (grade, units)
-    """
-    total_units = sum(units for _, units in data)
-    if total_units == 0:
-        return 0
-    total_points = sum(grade * units for grade, units in data)
-    return total_points / total_units
+def to_num(v,is_gwa=False):
+    if not v: return None
+    try:
+        v=v.strip()
+        if not is_gwa:
+            val=float(v[:-1])/100 if v.endswith("%") else float(Fraction(v))
+            if val>1: val/=100
+            return val if 0<=val<=1 else None
+        val=float(Fraction(v))
+        return val if 1<=val<=5 else None
+    except:
+        return None
 
-def classify_gwa(gwa):
-    """Returns the classification based on GWA."""
-    if gwa <= 1.50:
-        return "Director's Lister"
-    elif gwa <= 3.00:
-        return "You passed"
+def update_label(*a):
+    if typ.get()=="Subject":
+        number_label.config(text="Input number of subjects:")
     else:
-        return "You failed"
+        number_label.config(text="Input current quarter" if mode.get()=="GWA" else "Input number of quarters:")
 
-def main():
-    print("=== GWA Calculator ===")
+# --------- GENERATE INPUTS ---------
+def generate_inputs():
+    global generated
+    clear_all()
+    if not number.get().isdigit(): return
+    n=int(number.get())
+    if n<=0: return
+    if typ.get()=="Overall" and mode.get()=="GWA" and n==1:
+        result_label.config(text="Cannot generate inputs: No previous quarter")
+        return
+    generated=True
 
-    while True:
-        # Choose grade input type
-        print("\nChoose grade input type (1 or 2):")
-        print("1 - Percentage")
-        print("2 - GWA (1.0–5.0)")
-        mode = input("> ").strip()
+    if typ.get()=="Overall" and mode.get()=="Percentile":
+        for i in range(n):
+            tk.Label(input_frame,text=f"Quarter {i+1} overall grade:",font=LABEL_FONT,bg=CARD)\
+            .grid(row=i,column=0,padx=5,pady=4,sticky="w")
+            e=tk.Entry(input_frame,font=ENTRY_FONT,width=20)
+            e.grid(row=i,column=1,padx=5,pady=4)
+            entries.append(e)
+        return
 
-        if mode == "1":
-            mode = "percent"
-        elif mode == "2":
-            mode = "gwa"
+    if typ.get()=="Overall" and mode.get()=="GWA":
+        labels=["Previous quarter grade (1-5)","Weight of previous grade:",f"{ordinal(n)} quarter grade:","Weight of current grade:"]
+        for i,t in enumerate(labels):
+            tk.Label(input_frame,text=t,font=LABEL_FONT,bg=CARD)\
+            .grid(row=i,column=0,padx=5,pady=4,sticky="w")
+            e=tk.Entry(input_frame,font=ENTRY_FONT,width=20)
+            e.grid(row=i,column=1,padx=5,pady=4)
+            entries.append(e)
+        return
+
+    if mode.get()=="GWA":
+        tk.Label(input_frame,text="Grade",bg=CARD).grid(row=0,column=1)
+        tk.Label(input_frame,text="Units",bg=CARD).grid(row=0,column=2)
+        for i in range(n):
+            tk.Label(input_frame,text=f"Subject {i+1}:",font=LABEL_FONT,bg=CARD)\
+            .grid(row=i+1,column=0,padx=5,pady=4,sticky="w")
+            g=tk.Entry(input_frame,font=ENTRY_FONT,width=10)
+            u=tk.Entry(input_frame,font=ENTRY_FONT,width=10)
+            g.grid(row=i+1,column=1,padx=5)
+            u.grid(row=i+1,column=2,padx=5)
+            entries.extend([g,u])
+    else:
+        tk.Label(input_frame,text="Grade",bg=CARD).grid(row=0,column=1)
+        for i in range(n):
+            tk.Label(input_frame,text=f"Subject {i+1} Grade:",font=LABEL_FONT,bg=CARD)\
+            .grid(row=i+1,column=0,padx=5,pady=4,sticky="w")
+            e=tk.Entry(input_frame,font=ENTRY_FONT,width=10)
+            e.grid(row=i+1,column=1,padx=5)
+            entries.append(e)
+
+# ------------------- CALCULATE -------------------
+def calculate():
+    if not generated:
+        result_label.config(text="Generate inputs first")
+        return
+    try:
+        if typ.get()=="Overall" and mode.get()=="Percentile":
+            vals=[to_num(e.get()) for e in entries]
+            if None in vals: raise ValueError
+            result_label.config(text=f"Average Percentile: {sum(vals)/len(vals)*100:.2f}%")
+
+        elif typ.get()=="Overall" and mode.get()=="GWA":
+            p=to_num(entries[0].get(),True)
+            pw=to_num(entries[1].get())
+            c=to_num(entries[2].get(),True)
+            cw=to_num(entries[3].get())
+            if None in [p,pw,c,cw]: raise ValueError
+            result_label.config(text=f"Final Quarter Grade: {p*pw+c*cw:.2f}")
+
+        elif typ.get()=="Subject" and mode.get()=="GWA":
+            total=units=0
+            for i in range(0,len(entries),2):
+                g=to_num(entries[i].get(),True)
+                u=float(entries[i+1].get())
+                if g is None: raise ValueError
+                total+=g*u
+                units+=u
+            result_label.config(text=f"GWA: {total/units:.4f}")
+
         else:
-            print("Invalid choice. Try again.")
-            continue
+            vals=[to_num(e.get()) for e in entries]
+            if None in vals: raise ValueError
+            result_label.config(text=f"Quarter Percentile Grade: {sum(vals)/len(vals)*100:.2f}%")
 
-        data = []
-        while True:
-            grade_input, units = get_input(mode)
-            if grade_input is None:
-                break
-            data.append((grade_input, units))
+    except:
+        result_label.config(text="Invalid input")
 
-        if not data:
-            print("No grades entered! Please try again.")
-            continue
+# ------------------- GUI LAYOUT -------------------
+tk.Label(root,text="Grade Calculator",font=HEADER_FONT,bg=BG).pack(pady=15)
 
-        gwa = calc_gwa(data)
-        print(f"\nYour General Weighted Average (GWA) is: {round(gwa, 2)}")
-        print(f"Classification: {classify_gwa(gwa)}")
+opt=tk.Frame(root,bg=CARD,padx=15,pady=15,bd=1,relief="solid")
+opt.pack(fill="x",padx=20,pady=10)
 
-        again = input("\nDo you want to calculate again? (y/n): ").strip().lower()
-        if again != "y":
-            print("Thanks for using the program!")
-            break
+tk.Label(opt,text="Mode:",font=LABEL_FONT,bg=CARD).grid(row=0,column=0,sticky="w")
+tk.OptionMenu(opt,mode,"Percentile","GWA").grid(row=0,column=1)
 
-if __name__ == "__main__":
-    main()
+tk.Label(opt,text="Type:",font=LABEL_FONT,bg=CARD).grid(row=1,column=0,sticky="w")
+tk.OptionMenu(opt,typ,"Subject","Overall").grid(row=1,column=1)
+
+number_label=tk.Label(opt,text="Input number of subjects:",font=LABEL_FONT,bg=CARD)
+number_label.grid(row=2,column=0,sticky="w")
+
+number=tk.Entry(opt,font=ENTRY_FONT,width=15)
+number.grid(row=2,column=1)
+
+tk.Button(opt,text="Clear",bg=CLEAR,fg="white",font=BTN_FONT,width=10,command=clear_all)\
+.grid(row=3,column=0,pady=10)
+
+tk.Button(opt,text="Generate Inputs",bg=BTN,fg="white",font=BTN_FONT,width=18,command=generate_inputs)\
+.grid(row=3,column=1,pady=10)
+
+# --------- SCROLLABLE INPUT ---------
+container=tk.Frame(root,bg=CARD,bd=1,relief="solid")
+container.pack(fill="both",expand=True,padx=20,pady=10)
+
+canvas=tk.Canvas(container,bg=CARD,highlightthickness=0)
+scroll=tk.Scrollbar(container,command=canvas.yview)
+canvas.configure(yscrollcommand=scroll.set)
+
+scroll.pack(side="right",fill="y")
+canvas.pack(side="left",fill="both",expand=True)
+
+input_frame=tk.Frame(canvas,bg=CARD)
+canvas.create_window((0,0),window=input_frame,anchor="nw")
+
+input_frame.bind("<Configure>",lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
+
+# -------------- CALCULATE BUTTON --------------
+tk.Button(root,text="Calculate",bg=BTN,fg="white",font=BTN_FONT,width=20,command=calculate)\
+.pack(pady=10)
+
+# ----- RESULT BOX -----
+result_box=tk.Frame(root,bg=CARD,bd=1,relief="solid")
+result_box.pack(fill="x",padx=20,pady=10)
+
+result_label=tk.Label(result_box,text="",font=("Segoe UI",14),bg=CARD)
+result_label.pack(pady=20)
+
+# ------------- TRACE VARIABLES -------------    
+mode.trace_add("write",update_label)
+typ.trace_add("write",update_label)
+
+# ------- MAINLOOP -------
+root.mainloop()
