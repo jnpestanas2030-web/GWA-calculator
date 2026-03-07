@@ -39,4 +39,30 @@ Features:
 
 - Console-based G.W.A. calculator remains fully functional for both percentage and G.W.A. inputs.
 
+## v3.0.0 – 07/03/26
+
+- Full GUI Implementation:
+Replaced the console-based input/output with a Tkinter GUI.
+Users can now enter grades and units via input boxes instead of typing in the console.
+
+- Mode and Type Selection:
+Users can select Percentile or GWA mode.
+Users can choose Subject-level or Overall-level calculation.
+
+- Dynamic Input Generation:
+Generates input fields automatically based on the number of subjects or quarters.
+Supports different layouts for GWA vs Percentile and Subject vs Overall.
+
+- Scrollable Input Area:
+Added a scrollable frame for handling large numbers of subjects or quarters.
+
+- Real-Time Label Updates:
+The label for “Number of subjects/quarters” updates automatically when the mode/type changes.
+
+- Integrated Calculation:
+The program now automatically computes results based on the inputs in the GUI:
+   Percentile mode → calculates average percentile.
+   GWA mode → calculates General Weighted Average (GWA) using grades and units.
+Shows the result directly in the result box without using the console.
+
 (Contributors; Pestañas, Directo, Ilagan)
