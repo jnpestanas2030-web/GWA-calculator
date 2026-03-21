@@ -65,4 +65,24 @@ The program now automatically computes results based on the inputs in the GUI:
    GWA mode → calculates General Weighted Average (GWA) using grades and units.
 Shows the result directly in the result box without using the console.
 
+## v3.1.0 – 21/03/26
+
+
+Added user assistance and saving functionality to improve usability:
+
+New Features:
+
+-Help Button
+A new “Help” button was added. When pressed, it displays essential information on how to use the program, including explanations of each button and a simple tutorial for users.
+-Save Button
+A Save button was implemented. When clicked, it allows users to save their computed result (e.g., GWA or percentile), confirming that the output has been successfully stored.
+
+User can now:
+
+Access guidance on how to use the program through the Help feature
+Save their computed results for future reference
+Enter percentage or GWA subject grade values
+Calculate their G.W.A
+View results directly in the GUI interface
+
 (Contributors; Pestañas, Directo, Ilagan)
