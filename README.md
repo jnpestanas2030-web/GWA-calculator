@@ -21,6 +21,10 @@
 -Validates user input to ensure correct numerical entries.
 
 -Allows repeated calculations without restarting the program.
+
+-Includes a Help button that provides a guide on how to use the program and explains each button (tutorial like feature).
+
+-Includes a Save button that allows users to store their computed results ( GWA or percentage) for future reference.
 ## Requirements
 - Python 3.8+
 
